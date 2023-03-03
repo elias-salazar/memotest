@@ -57,6 +57,7 @@ function App() {
     setArray(esto.sort(() => Math.random() - 0.5));
     setSeleccionado([]);
     setFinish(false);
+    setOk([]);
   };
   console.log(iguales, ok);
   return (
