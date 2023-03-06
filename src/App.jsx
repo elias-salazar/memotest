@@ -18,6 +18,7 @@ function App() {
   const [array, setArray] = useState([].sort(() => Math.random() - 0.5));
   const [seleccionado, setSeleccionado] = useState([]);
   const [iguales, setIguales] = useState([]);
+  const [idselected, setIdselected] = useState([]);
   const [ok, setOk] = useState([]);
   const [finish, setFinish] = useState(false);
 
@@ -27,39 +28,44 @@ function App() {
       if (esto[i].id == id) {
         setSeleccionado(seleccionado.concat(id));
         setIguales(iguales.concat(esto[i].name));
+        setIdselected(idselected.concat(esto[i].id));
         pr = esto[i].name;
-        iguales.includes(pr)
+        iguales.includes(pr) && !idselected.includes(esto[i].id)
           ? (setOk(ok.concat(pr)),
             setTimeout(() => {
               setIguales([]);
               setSeleccionado([]);
+              setIdselected([]);
             }, 1000))
           : iguales[0] != iguales[1] &&
             setTimeout(() => {
               setIguales([]);
+              setIdselected([]);
               setSeleccionado([]);
             }, 1000);
       }
     }
+    console.log(pr);
   };
   const felicidades = () => {
     ok.length == 5 && setFinish(true);
   };
+
   useEffect(() => {
     felicidades();
   }, [ok]);
   const funciones = (id) => {
-    seleccionar(id);
-    felicidades();
+    idselected.length < 2 && seleccionar(id), felicidades();
   };
 
   const estart = () => {
     setArray(esto.sort(() => Math.random() - 0.5));
     setSeleccionado([]);
     setFinish(false);
+    setIdselected([]);
     setOk([]);
   };
-  console.log(iguales, ok);
+  console.log(idselected, ok);
   return (
     <div className="App">
       <h2>hola</h2>
